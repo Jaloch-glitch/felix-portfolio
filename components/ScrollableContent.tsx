@@ -176,8 +176,7 @@ export function ScrollableContent() {
           </div>
 
           <div className="space-y-24">
-            {chapters.map((chapter, i) =>
-              revealedSections.includes(`chapter-${i}`) && (
+            {chapters.map((chapter, i) => (
                 <div
                   key={i}
                   className="grid md:grid-cols-12 gap-8 animate-in fade-in slide-in-from-bottom-6 duration-1000"
@@ -239,8 +238,7 @@ export function ScrollableContent() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {projects.map((project, i) =>
-              revealedSections.includes(`project-${i}`) && (
+            {projects.map((project, i) => (
                 <div
                   key={i}
                   className="group border border-gray-800 bg-[#0d1117] p-6 hover:border-emerald-500/50 transition-all duration-500 animate-in fade-in slide-in-from-bottom-6 duration-1000"
