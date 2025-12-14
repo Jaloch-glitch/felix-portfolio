@@ -138,7 +138,7 @@ export default function Portfolio() {
           </div>
 
           {/* Content Area - Scrollable */}
-          <div className="flex-1 overflow-y-auto p-6">
+          <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent p-6">
             {loading ? (
               <LoadingAnimation filename={selectedFile?.name || ''} onComplete={handleLoadingComplete} />
             ) : selectedFile && selectedFile.content ? (
