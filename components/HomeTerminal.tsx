@@ -200,29 +200,31 @@ Type 'help' for available commands.`;
         </div>
 
         {/* Command History */}
-        {commandHistory.map((entry, i) => (
-          <div key={i} className="space-y-2 font-mono">
-            <div className="flex items-center gap-2 text-sm">
-              <span className="text-emerald-400">felix@portfolio</span>
-              <span className="text-gray-600">:</span>
-              <span className="text-blue-400">~</span>
-              <span className="text-gray-600">$</span>
-              <span className="text-gray-200 ml-2">{entry.cmd}</span>
+        <div className="space-y-4">
+          {commandHistory.map((entry, i) => (
+            <div key={i} className="space-y-3 font-mono">
+              <div className="flex items-center gap-2 text-sm">
+                <span className="text-emerald-400">felix@portfolio</span>
+                <span className="text-gray-600">:</span>
+                <span className="text-blue-400">~</span>
+                <span className="text-gray-600">></span>
+                <span className="text-gray-200 ml-2">{entry.cmd}</span>
+              </div>
+              {entry.output && (
+                <pre className="text-gray-400 text-sm whitespace-pre-wrap pl-6 leading-relaxed">
+                  {entry.output}
+                </pre>
+              )}
             </div>
-            {entry.output && (
-              <pre className="text-gray-400 text-sm whitespace-pre-wrap pl-4 leading-relaxed">
-                {entry.output}
-              </pre>
-            )}
-          </div>
-        ))}
+          ))}
+        </div>
 
         {/* Current Input */}
-        <div className="flex items-center gap-2 text-sm font-mono sticky bottom-0 bg-[#0a0e14] py-2">
+        <div className="flex items-center gap-2 text-sm font-mono sticky bottom-0 bg-[#0a0e14] py-4">
           <span className="text-emerald-400">felix@portfolio</span>
           <span className="text-gray-600">:</span>
           <span className="text-blue-400">~</span>
-          <span className="text-gray-600">$</span>
+          <span className="text-gray-600">></span>
           <input
             ref={inputRef}
             type="text"
