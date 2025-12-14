@@ -49,13 +49,15 @@ export default function Portfolio() {
             <div className="w-3 h-3 rounded-full bg-green-500/90 hover:bg-green-500 cursor-pointer transition-colors" />
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 hover:bg-gray-800/30 rounded transition-colors"
-          >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {/* Mobile Menu Button - Only show in terminal mode */}
+          {viewMode === 'terminal' && (
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 hover:bg-gray-800/30 rounded transition-colors"
+            >
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          )}
 
           <span className="text-xs md:text-xs text-gray-400 font-medium">felix-portfolio</span>
         </div>
@@ -94,10 +96,10 @@ export default function Portfolio() {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
+      {/* Mobile Menu Overlay - Only in terminal mode */}
+      {viewMode === 'terminal' && mobileMenuOpen && (
         <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setMobileMenuOpen(false)}>
-          <div className="w-64 h-full bg-[#1c1c1e] shadow-xl" onClick={(e) => e.stopPropagation()}>
+          <div className="w-64 h-full bg-[#1c1c1e] shadow-xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
             <Sidebar
               fileSystem={fileSystem}
               onFileSelect={handleFileSelect}
@@ -109,12 +111,16 @@ export default function Portfolio() {
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Desktop Sidebar */}
-        <Sidebar
-          fileSystem={fileSystem}
-          onFileSelect={handleFileSelect}
-          selectedFile={selectedFile}
-        />
+        {/* Desktop Sidebar - Only show in terminal mode and on md+ screens */}
+        {viewMode === 'terminal' && (
+          <div className="hidden md:block">
+            <Sidebar
+              fileSystem={fileSystem}
+              onFileSelect={handleFileSelect}
+              selectedFile={selectedFile}
+            />
+          </div>
+        )}
 
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col overflow-hidden">

@@ -11,7 +11,7 @@ interface SidebarProps {
 
 export function Sidebar({ fileSystem, onFileSelect, selectedFile }: SidebarProps) {
   return (
-    <div className="w-56 bg-[#1c1c1e] border-r border-gray-800/30 flex flex-col flex-shrink-0 shadow-xl hidden md:flex">
+    <div className="w-full md:w-56 bg-[#1c1c1e] border-r border-gray-800/30 flex flex-col flex-shrink-0 shadow-xl">
       {/* Sidebar Header */}
       <div className="p-4 border-b border-gray-800/30">
         <div className="flex items-center gap-3">
