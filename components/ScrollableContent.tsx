@@ -4,22 +4,31 @@ import { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, MapPin, ArrowDown, Cpu, Database, Brain, Network, Code, Zap, Globe, Award, Briefcase, GraduationCap, ExternalLink } from 'lucide-react';
 
 export function ScrollableContent() {
-  const [revealed, setRevealed] = useState<Record<string, boolean>>({});
+  const [revealedSections, setRevealedSections] = useState<string[]>([]);
 
+  // Auto-reveal sections one by one with delays
   useEffect(() => {
-    const handleScroll = () => {
-      document.querySelectorAll('[data-reveal]').forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const id = el.getAttribute('data-reveal');
-        if (id && rect.top < window.innerHeight * 0.85) {
-          setRevealed(prev => ({ ...prev, [id]: true }));
-        }
-      });
-    };
+    const sections = [
+      'hero',
+      'hook',
+      'chapter-0',
+      'chapter-1',
+      'chapter-2',
+      'chapter-3',
+      'chapter-4',
+      'philosophy',
+      'project-0',
+      'project-1',
+      'project-2',
+      'project-3',
+      'contact'
+    ];
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    sections.forEach((section, index) => {
+      setTimeout(() => {
+        setRevealedSections(prev => [...prev, section]);
+      }, index * 800); // Stagger each section by 800ms
+    });
   }, []);
 
   const chapters = [
@@ -117,8 +126,7 @@ export function ScrollableContent() {
 
           {/* Main headline */}
           <div
-            data-reveal="hero"
-            className={`transition-all duration-1000 ${revealed.hero ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+            className={`transition-all duration-1000 ${revealedSections.includes('hero') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
           >
             <p className="text-emerald-400 text-sm tracking-widest mb-4 font-mono">
               NAIROBI → PRAGUE → GERMANY
@@ -150,8 +158,7 @@ export function ScrollableContent() {
       <section className="py-32 px-6">
         <div className="max-w-[1000px] mx-auto">
           <div
-            data-reveal="hook"
-            className={`transition-all duration-1000 ${revealed.hook ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}
+            className={`transition-all duration-1000 ${revealedSections.includes('hook') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}
           >
             <p className="text-sm text-emerald-400 tracking-widest mb-6 font-mono">DISPATCH FROM THE FRONTIER</p>
             <p className="text-4xl md:text-5xl leading-tight font-bold">
@@ -175,11 +182,9 @@ export function ScrollableContent() {
             {chapters.map((chapter, i) => (
               <div
                 key={i}
-                data-reveal={`chapter-${i}`}
                 className={`grid md:grid-cols-12 gap-8 transition-all duration-1000 ${
-                  revealed[`chapter-${i}`] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                  revealedSections.includes(`chapter-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                 }`}
-                style={{ transitionDelay: `${i * 100}ms` }}
               >
                 <div className="md:col-span-4">
                   <div className="sticky top-24">
@@ -208,8 +213,7 @@ export function ScrollableContent() {
       <section className="py-32 px-6 bg-[#0d1117]">
         <div className="max-w-[1000px] mx-auto">
           <div
-            data-reveal="philosophy"
-            className={`transition-all duration-1000 ${revealed.philosophy ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}
+            className={`transition-all duration-1000 ${revealedSections.includes('philosophy') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}
           >
             <p className="text-sm text-emerald-400 tracking-widest mb-8 font-mono">CORE PHILOSOPHY</p>
 
@@ -238,11 +242,9 @@ export function ScrollableContent() {
             {projects.map((project, i) => (
               <div
                 key={i}
-                data-reveal={`project-${i}`}
                 className={`group border border-gray-800 bg-[#0d1117] p-6 hover:border-emerald-500/50 transition-all duration-500 ${
-                  revealed[`project-${i}`] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                  revealedSections.includes(`project-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                 }`}
-                style={{ transitionDelay: `${i * 100}ms` }}
               >
                 <div className="flex justify-between items-start mb-4">
                   <span className="text-xs tracking-widest text-emerald-400 font-mono">{project.category}</span>
@@ -275,8 +277,7 @@ export function ScrollableContent() {
       <section className="py-32 px-6 border-t border-gray-800">
         <div className="max-w-[1200px] mx-auto">
           <div
-            data-reveal="contact"
-            className={`transition-all duration-1000 ${revealed.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+            className={`transition-all duration-1000 ${revealedSections.includes('contact') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
           >
             <p className="text-sm text-emerald-400 tracking-widest mb-4 font-mono">GET IN TOUCH</p>
             <h2 className="text-6xl md:text-8xl font-bold leading-tight mb-8">
