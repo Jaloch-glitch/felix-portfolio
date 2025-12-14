@@ -4,22 +4,24 @@ import { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail, MapPin, ArrowDown, Cpu, Database, Brain, Network, Code, Zap, Globe, Award, Briefcase, GraduationCap, ExternalLink } from 'lucide-react';
 
 export function ScrollableContent() {
-  const [currentSection, setCurrentSection] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Scroll-based section reveal
+  // Scroll-based reveal - simpler approach
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const handleScroll = () => {
-      const scrollPosition = container.scrollTop;
-      const sectionHeight = container.scrollHeight / 13; // 13 total sections
-      const newSection = Math.floor(scrollPosition / sectionHeight);
-      setCurrentSection(Math.min(newSection, 12));
+      const scrollTop = container.scrollTop;
+      const scrollHeight = container.scrollHeight - container.clientHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      setScrollProgress(progress);
     };
 
     container.addEventListener('scroll', handleScroll);
+    // Trigger initial check
+    handleScroll();
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -109,13 +111,11 @@ export function ScrollableContent() {
     }
   ];
 
-  const sections = ['hero', 'hook', ...chapters.map((_, i) => `chapter-${i}`), 'philosophy', ...projects.map((_, i) => `project-${i}`), 'contact'];
-
   return (
     <div ref={containerRef} className="h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent bg-[#0a0e14] text-gray-200">
 
-      {/* Hero Section */}
-      {currentSection >= sections.indexOf('hero') && (
+      {/* Hero Section - Always show */}
+      {scrollProgress >= 0 && (
         <section className="min-h-screen flex flex-col justify-center px-6 py-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           <div className="max-w-[1200px] mx-auto w-full">
 
@@ -149,7 +149,7 @@ export function ScrollableContent() {
       )}
 
       {/* The Hook */}
-      {currentSection >= sections.indexOf('hook') && (
+      {true && (
         <section className="py-32 px-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           <div className="max-w-[1000px] mx-auto">
             <div>
@@ -164,9 +164,9 @@ export function ScrollableContent() {
       )}
 
       {/* Journey */}
-      {(currentSection >= sections.indexOf('chapter-0') || currentSection >= sections.indexOf('chapter-1') ||
-        currentSection >= sections.indexOf('chapter-2') || currentSection >= sections.indexOf('chapter-3') ||
-        currentSection >= sections.indexOf('chapter-4')) && (
+      {(true || true ||
+        true || true ||
+        true) && (
         <section className="py-20 px-6 border-t border-gray-800 animate-in fade-in duration-1000">
         <div className="max-w-[1200px] mx-auto">
 
@@ -208,7 +208,7 @@ export function ScrollableContent() {
       )}
 
       {/* Philosophy */}
-      {currentSection >= sections.indexOf('philosophy') && (
+      {true && (
         <section className="py-32 px-6 bg-[#0d1117] animate-in fade-in slide-in-from-bottom-8 duration-1000">
           <div className="max-w-[1000px] mx-auto">
             <div>
@@ -228,8 +228,8 @@ export function ScrollableContent() {
       )}
 
       {/* Projects */}
-      {(currentSection >= sections.indexOf('project-0') || currentSection >= sections.indexOf('project-1') ||
-        currentSection >= sections.indexOf('project-2') || currentSection >= sections.indexOf('project-3')) && (
+      {(true || true ||
+        true || true) && (
         <section className="py-20 px-6 border-t border-gray-800 animate-in fade-in duration-1000">
         <div className="max-w-[1200px] mx-auto">
 
@@ -275,7 +275,7 @@ export function ScrollableContent() {
       )}
 
       {/* Contact */}
-      {currentSection >= sections.indexOf('contact') && (
+      {true && (
         <section className="py-32 px-6 border-t border-gray-800 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           <div className="max-w-[1200px] mx-auto">
             <div>
@@ -333,7 +333,7 @@ export function ScrollableContent() {
       )}
 
       {/* Footer */}
-      {currentSection >= sections.indexOf('contact') && (
+      {true && (
         <footer className="py-6 px-6 border-t border-gray-800">
         <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600 font-mono">
           <span>© 2025 FELIX_ONYANGO.SYS</span>
