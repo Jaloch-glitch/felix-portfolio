@@ -22,9 +22,9 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0e14] text-gray-200 font-mono flex flex-col">
+    <div className="h-screen bg-[#0a0e14] text-gray-200 font-mono flex flex-col overflow-hidden">
       {/* Top Bar - Mac Style */}
-      <div className="h-7 bg-[#1c1c1e]/95 backdrop-blur-sm border-b border-gray-800/50 flex items-center justify-between px-4 flex-shrink-0 sticky top-0 z-50">
+      <div className="h-7 bg-[#1c1c1e]/95 backdrop-blur-sm border-b border-gray-800/50 flex items-center justify-between px-4 flex-shrink-0">
         <div className="flex items-center gap-4">
           <div className="hidden md:flex gap-2">
             <div className="w-3 h-3 rounded-full bg-red-500/90" />
@@ -46,9 +46,10 @@ export default function Portfolio() {
         </div>
       </div>
 
-      {/* Terminal Section - Fixed Height */}
-      <div className="bg-[#0a0e14] border-b border-gray-800/50">
-        <div className="max-w-[1400px] mx-auto">
+      {/* Main Content - Terminal + Display Area */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Terminal Section - Fixed */}
+        <div className="bg-[#0a0e14] border-b border-gray-800/50 flex-shrink-0">
           <div className="h-10 bg-[#1c1c1e] border-b border-gray-800/30 flex items-center px-4">
             <div className="flex items-center gap-2 text-xs">
               <span className="text-emerald-400">●</span>
@@ -56,19 +57,19 @@ export default function Portfolio() {
             </div>
           </div>
 
-          <div className="h-[400px] overflow-hidden">
+          <div className="h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700">
             <HomeTerminal fileSystem={fileSystem} onFileSelect={() => {}} />
           </div>
         </div>
-      </div>
 
-      {/* Scrollable Content Below Terminal */}
-      <div className="flex-1">
-        <ScrollableContent />
+        {/* Content Display Area - Shows content based on scroll or commands */}
+        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+          <ScrollableContent />
+        </div>
       </div>
 
       {/* Status Bar */}
-      <div className="h-6 bg-[#1c1c1e] border-t border-gray-800/30 flex items-center justify-between px-4 text-[11px] text-gray-500 flex-shrink-0 sticky bottom-0">
+      <div className="h-6 bg-[#1c1c1e] border-t border-gray-800/30 flex items-center justify-between px-4 text-[11px] text-gray-500 flex-shrink-0">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1.5">
             <GitBranch size={10} />

@@ -1,34 +1,26 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail, MapPin, ArrowDown, Cpu, Database, Brain, Network, Code, Zap, Globe, Award, Briefcase, GraduationCap, ExternalLink } from 'lucide-react';
 
 export function ScrollableContent() {
-  const [revealedSections, setRevealedSections] = useState<string[]>([]);
+  const [currentSection, setCurrentSection] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Auto-reveal sections one by one with delays
+  // Scroll-based section reveal
   useEffect(() => {
-    const sections = [
-      'hero',
-      'hook',
-      'chapter-0',
-      'chapter-1',
-      'chapter-2',
-      'chapter-3',
-      'chapter-4',
-      'philosophy',
-      'project-0',
-      'project-1',
-      'project-2',
-      'project-3',
-      'contact'
-    ];
+    const container = containerRef.current;
+    if (!container) return;
 
-    sections.forEach((section, index) => {
-      setTimeout(() => {
-        setRevealedSections(prev => [...prev, section]);
-      }, index * 800); // Stagger each section by 800ms
-    });
+    const handleScroll = () => {
+      const scrollPosition = container.scrollTop;
+      const sectionHeight = container.scrollHeight / 13; // 13 total sections
+      const newSection = Math.floor(scrollPosition / sectionHeight);
+      setCurrentSection(Math.min(newSection, 12));
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
   const chapters = [
@@ -117,11 +109,13 @@ export function ScrollableContent() {
     }
   ];
 
+  const sections = ['hero', 'hook', ...chapters.map((_, i) => `chapter-${i}`), 'philosophy', ...projects.map((_, i) => `project-${i}`), 'contact'];
+
   return (
-    <div className="bg-[#0a0e14] text-gray-200">
+    <div ref={containerRef} className="h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent bg-[#0a0e14] text-gray-200">
 
       {/* Hero Section */}
-      {revealedSections.includes('hero') && (
+      {currentSection >= sections.indexOf('hero') && (
         <section className="min-h-screen flex flex-col justify-center px-6 py-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           <div className="max-w-[1200px] mx-auto w-full">
 
@@ -155,7 +149,7 @@ export function ScrollableContent() {
       )}
 
       {/* The Hook */}
-      {revealedSections.includes('hook') && (
+      {currentSection >= sections.indexOf('hook') && (
         <section className="py-32 px-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           <div className="max-w-[1000px] mx-auto">
             <div>
@@ -170,9 +164,9 @@ export function ScrollableContent() {
       )}
 
       {/* Journey */}
-      {(revealedSections.includes('chapter-0') || revealedSections.includes('chapter-1') ||
-        revealedSections.includes('chapter-2') || revealedSections.includes('chapter-3') ||
-        revealedSections.includes('chapter-4')) && (
+      {(currentSection >= sections.indexOf('chapter-0') || currentSection >= sections.indexOf('chapter-1') ||
+        currentSection >= sections.indexOf('chapter-2') || currentSection >= sections.indexOf('chapter-3') ||
+        currentSection >= sections.indexOf('chapter-4')) && (
         <section className="py-20 px-6 border-t border-gray-800 animate-in fade-in duration-1000">
         <div className="max-w-[1200px] mx-auto">
 
@@ -214,7 +208,7 @@ export function ScrollableContent() {
       )}
 
       {/* Philosophy */}
-      {revealedSections.includes('philosophy') && (
+      {currentSection >= sections.indexOf('philosophy') && (
         <section className="py-32 px-6 bg-[#0d1117] animate-in fade-in slide-in-from-bottom-8 duration-1000">
           <div className="max-w-[1000px] mx-auto">
             <div>
@@ -234,8 +228,8 @@ export function ScrollableContent() {
       )}
 
       {/* Projects */}
-      {(revealedSections.includes('project-0') || revealedSections.includes('project-1') ||
-        revealedSections.includes('project-2') || revealedSections.includes('project-3')) && (
+      {(currentSection >= sections.indexOf('project-0') || currentSection >= sections.indexOf('project-1') ||
+        currentSection >= sections.indexOf('project-2') || currentSection >= sections.indexOf('project-3')) && (
         <section className="py-20 px-6 border-t border-gray-800 animate-in fade-in duration-1000">
         <div className="max-w-[1200px] mx-auto">
 
@@ -281,7 +275,7 @@ export function ScrollableContent() {
       )}
 
       {/* Contact */}
-      {revealedSections.includes('contact') && (
+      {currentSection >= sections.indexOf('contact') && (
         <section className="py-32 px-6 border-t border-gray-800 animate-in fade-in slide-in-from-bottom-8 duration-1000">
           <div className="max-w-[1200px] mx-auto">
             <div>
@@ -339,7 +333,7 @@ export function ScrollableContent() {
       )}
 
       {/* Footer */}
-      {revealedSections.includes('contact') && (
+      {currentSection >= sections.indexOf('contact') && (
         <footer className="py-6 px-6 border-t border-gray-800">
         <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600 font-mono">
           <span>© 2025 FELIX_ONYANGO.SYS</span>
