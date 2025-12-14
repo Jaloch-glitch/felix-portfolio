@@ -207,7 +207,7 @@ Type 'help' for available commands.`;
                 <span className="text-emerald-400">felix@portfolio</span>
                 <span className="text-gray-600">:</span>
                 <span className="text-blue-400">~</span>
-                <span className="text-gray-600">></span>
+                <span className="text-gray-600">{'>'}</span>
                 <span className="text-gray-200 ml-2">{entry.cmd}</span>
               </div>
               {entry.output && (
@@ -224,7 +224,7 @@ Type 'help' for available commands.`;
           <span className="text-emerald-400">felix@portfolio</span>
           <span className="text-gray-600">:</span>
           <span className="text-blue-400">~</span>
-          <span className="text-gray-600">></span>
+          <span className="text-gray-600">{'>'}</span>
           <input
             ref={inputRef}
             type="text"

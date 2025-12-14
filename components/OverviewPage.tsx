@@ -220,7 +220,7 @@ export function OverviewPage() {
         <section className="space-y-6">
           <h2 className="text-2xl font-bold text-gray-100 flex items-center gap-2">
             <GraduationCap size={24} />
-            Education & Certifications
+            Education
           </h2>
 
           <div className="space-y-4">
@@ -241,6 +241,79 @@ export function OverviewPage() {
               <p className="text-sm text-gray-400">2019 | Kenya</p>
               <p className="text-xs text-gray-500 mt-1">Bachelor of Commerce (Human Resource Management)</p>
             </div>
+          </div>
+        </section>
+
+        {/* Certifications */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-gray-100 flex items-center gap-2">
+              <Award size={24} />
+              Certifications
+            </h2>
+            <a
+              href="https://www.credly.com/users/felix-onyango.eb44cd2b"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-emerald-400 hover:text-emerald-300 flex items-center gap-1"
+            >
+              View on Credly
+              <ExternalLink size={14} />
+            </a>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              {
+                name: 'SAP Certified: Generative AI Developer',
+                issuer: 'SAP',
+                year: '2024',
+              },
+              {
+                name: 'Microsoft Certified: Azure Data Fundamentals',
+                issuer: 'Microsoft',
+                year: '2023',
+              },
+              {
+                name: 'Microsoft Certified: Power Platform Fundamentals',
+                issuer: 'Microsoft',
+                year: '2023',
+              },
+              {
+                name: 'Microsoft Certified: Security, Compliance, and Identity Fundamentals',
+                issuer: 'Microsoft',
+                year: '2023',
+              },
+              {
+                name: 'Enterprise Design Thinking Co-Creator',
+                issuer: 'IBM',
+                year: '2023',
+              },
+              {
+                name: 'Enterprise Design Thinking Practitioner',
+                issuer: 'IBM',
+                year: '2023',
+              },
+              {
+                name: 'McKinsey Forward Program',
+                issuer: 'McKinsey & Company',
+                year: '2023',
+              },
+              {
+                name: 'APISEC|CON Automotive - Certificate of Attendance',
+                issuer: 'APISecure',
+                year: '2024',
+              },
+            ].map((cert, i) => (
+              <div key={i} className="p-4 bg-gray-800/30 border border-gray-800 rounded-lg hover:border-emerald-500/30 transition-colors">
+                <div className="flex items-start gap-2 mb-2">
+                  <Award size={16} className="text-emerald-400 mt-0.5 flex-shrink-0" />
+                  <h3 className="text-sm font-semibold text-gray-200 leading-tight">{cert.name}</h3>
+                </div>
+                <p className="text-xs text-gray-400">{cert.issuer}</p>
+                <p className="text-xs text-gray-500 mt-1">{cert.year}</p>
+              </div>
+            ))}
           </div>
         </section>
 
