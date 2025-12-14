@@ -121,13 +121,12 @@ export function ScrollableContent() {
     <div className="bg-[#0a0e14] text-gray-200">
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center px-6 py-20">
-        <div className="max-w-[1200px] mx-auto w-full">
+      {revealedSections.includes('hero') && (
+        <section className="min-h-screen flex flex-col justify-center px-6 py-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+          <div className="max-w-[1200px] mx-auto w-full">
 
-          {/* Main headline */}
-          <div
-            className={`transition-all duration-1000 ${revealedSections.includes('hero') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-          >
+            {/* Main headline */}
+            <div>
             <p className="text-emerald-400 text-sm tracking-widest mb-4 font-mono">
               NAIROBI → PRAGUE → GERMANY
             </p>
@@ -150,27 +149,31 @@ export function ScrollableContent() {
           <div className="mt-16 flex items-center gap-3 text-gray-600">
             <span className="text-xs tracking-widest font-mono">SCROLL TO EXPLORE</span>
             <ArrowDown size={16} className="animate-bounce" />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* The Hook */}
-      <section className="py-32 px-6">
-        <div className="max-w-[1000px] mx-auto">
-          <div
-            className={`transition-all duration-1000 ${revealedSections.includes('hook') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}
-          >
+      {revealedSections.includes('hook') && (
+        <section className="py-32 px-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+          <div className="max-w-[1000px] mx-auto">
+            <div>
             <p className="text-sm text-emerald-400 tracking-widest mb-6 font-mono">DISPATCH FROM THE FRONTIER</p>
             <p className="text-4xl md:text-5xl leading-tight font-bold">
               What happens when a self-taught developer from <span className="text-emerald-400">Kenya</span>
               <span className="text-gray-500"> ends up building AI-powered data governance systems for one of the world's largest enterprise companies?</span>
             </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Journey */}
-      <section className="py-20 px-6 border-t border-gray-800">
+      {(revealedSections.includes('chapter-0') || revealedSections.includes('chapter-1') ||
+        revealedSections.includes('chapter-2') || revealedSections.includes('chapter-3') ||
+        revealedSections.includes('chapter-4')) && (
+        <section className="py-20 px-6 border-t border-gray-800 animate-in fade-in duration-1000">
         <div className="max-w-[1200px] mx-auto">
 
           <div className="mb-16">
@@ -179,13 +182,12 @@ export function ScrollableContent() {
           </div>
 
           <div className="space-y-24">
-            {chapters.map((chapter, i) => (
-              <div
-                key={i}
-                className={`grid md:grid-cols-12 gap-8 transition-all duration-1000 ${
-                  revealedSections.includes(`chapter-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                }`}
-              >
+            {chapters.map((chapter, i) =>
+              revealedSections.includes(`chapter-${i}`) && (
+                <div
+                  key={i}
+                  className="grid md:grid-cols-12 gap-8 animate-in fade-in slide-in-from-bottom-6 duration-1000"
+                >
                 <div className="md:col-span-4">
                   <div className="sticky top-24">
                     <div className="flex items-center gap-3 mb-4">
@@ -203,18 +205,19 @@ export function ScrollableContent() {
                     {chapter.story}
                   </p>
                 </div>
-              </div>
-            ))}
+                </div>
+              )
+            )}
           </div>
         </div>
-      </section>
+        </section>
+      )}
 
       {/* Philosophy */}
-      <section className="py-32 px-6 bg-[#0d1117]">
-        <div className="max-w-[1000px] mx-auto">
-          <div
-            className={`transition-all duration-1000 ${revealedSections.includes('philosophy') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}
-          >
+      {revealedSections.includes('philosophy') && (
+        <section className="py-32 px-6 bg-[#0d1117] animate-in fade-in slide-in-from-bottom-8 duration-1000">
+          <div className="max-w-[1000px] mx-auto">
+            <div>
             <p className="text-sm text-emerald-400 tracking-widest mb-8 font-mono">CORE PHILOSOPHY</p>
 
             <blockquote className="text-3xl md:text-4xl leading-tight font-bold mb-8">
@@ -225,12 +228,15 @@ export function ScrollableContent() {
             </blockquote>
 
             <p className="text-sm text-gray-600 font-mono">FIRST PRINCIPLES · PRECEPT UPON PRECEPT</p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Projects */}
-      <section className="py-20 px-6 border-t border-gray-800">
+      {(revealedSections.includes('project-0') || revealedSections.includes('project-1') ||
+        revealedSections.includes('project-2') || revealedSections.includes('project-3')) && (
+        <section className="py-20 px-6 border-t border-gray-800 animate-in fade-in duration-1000">
         <div className="max-w-[1200px] mx-auto">
 
           <div className="mb-16">
@@ -239,13 +245,12 @@ export function ScrollableContent() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {projects.map((project, i) => (
-              <div
-                key={i}
-                className={`group border border-gray-800 bg-[#0d1117] p-6 hover:border-emerald-500/50 transition-all duration-500 ${
-                  revealedSections.includes(`project-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-                }`}
-              >
+            {projects.map((project, i) =>
+              revealedSections.includes(`project-${i}`) && (
+                <div
+                  key={i}
+                  className="group border border-gray-800 bg-[#0d1117] p-6 hover:border-emerald-500/50 transition-all duration-500 animate-in fade-in slide-in-from-bottom-6 duration-1000"
+                >
                 <div className="flex justify-between items-start mb-4">
                   <span className="text-xs tracking-widest text-emerald-400 font-mono">{project.category}</span>
                   <span className="text-xs text-gray-600 font-mono">{project.year}</span>
@@ -267,18 +272,19 @@ export function ScrollableContent() {
                 </div>
 
                 <p className="text-xs text-emerald-400 font-mono">{project.stats}</p>
-              </div>
-            ))}
+                </div>
+              )
+            )}
           </div>
         </div>
-      </section>
+        </section>
+      )}
 
       {/* Contact */}
-      <section className="py-32 px-6 border-t border-gray-800">
-        <div className="max-w-[1200px] mx-auto">
-          <div
-            className={`transition-all duration-1000 ${revealedSections.includes('contact') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-          >
+      {revealedSections.includes('contact') && (
+        <section className="py-32 px-6 border-t border-gray-800 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+          <div className="max-w-[1200px] mx-auto">
+            <div>
             <p className="text-sm text-emerald-400 tracking-widest mb-4 font-mono">GET IN TOUCH</p>
             <h2 className="text-6xl md:text-8xl font-bold leading-tight mb-8">
               LET'S BUILD
@@ -327,18 +333,21 @@ export function ScrollableContent() {
                 </div>
               </a>
             </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Footer */}
-      <footer className="py-6 px-6 border-t border-gray-800">
+      {revealedSections.includes('contact') && (
+        <footer className="py-6 px-6 border-t border-gray-800">
         <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600 font-mono">
           <span>© 2025 FELIX_ONYANGO.SYS</span>
           <span>NAIROBI → PRAGUE → GERMANY</span>
           <span>v{new Date().getFullYear() - 2019}.0.0</span>
         </div>
-      </footer>
+        </footer>
+      )}
     </div>
   );
 }
